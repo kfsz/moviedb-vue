@@ -36,28 +36,29 @@
       <v-spacer></v-spacer>
 
       <v-btn v-on:click="toggleTheme" target="_blank" text>
-        <span class="mr-2">About</span>
+        <span class="mr-2 hidden-sm-and-down">About</span>
         <v-icon>mdi-information-outline</v-icon>
       </v-btn>
 
       <v-btn v-on:click="toggleTheme" target="_blank" text>
-        <span class="mr-2">Toggle dark mode</span>
+        <span class="mr-2 hidden-sm-and-down">Toggle dark mode</span>
         <v-icon>mdi-compare</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-content>
-      <MovieDatabase />
+      <MovieDatabase :movies="this.movies" />
     </v-content>
 
     <v-footer>
       <v-pagination
         v-model="page"
-        :length="15"
         :next-icon="nextIcon"
         :prev-icon="prevIcon"
+        :length="length"
         :page="page"
-        :total-visible="7"
+        total-visible=7
+        @input="get"
       ></v-pagination>
     </v-footer>
   </v-app>
@@ -79,12 +80,36 @@ export default {
     },
     searchDatabase() {
       alert(this.search);
+    },
+    get() {
+      const axios = require("axios");
+      let Config = {
+        params: {
+          api_key: process.env.VUE_APP_API_KEY,
+          language: "en-US",
+          sort_by: "popularity.desc",
+          page: this.page
+        }
+      };
+      axios
+        .get(`${process.env.VUE_APP_API_URL}discover/movie/?`, Config)
+        .then(response => {
+          this.movies = response.data.results;
+          console.log(this.movies);
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
   },
-
+  created() {
+    this.get();
+  },
   data: () => ({
     search: "",
-    page: 1
+    page: 1,
+    length: 15,
+    movies: []
   })
 };
 </script>

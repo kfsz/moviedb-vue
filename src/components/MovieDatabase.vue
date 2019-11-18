@@ -1,16 +1,16 @@
 <template>
   <v-container fluid>
     <v-row dense>
-      <v-col v-for="card in cards" :key="card.title" :cols="card.flex">
-        <v-card shaped width="300px">
+      <v-col v-for="movie in movies" :key="movie.title" :class="{'ma-0': $vuetify.breakpoint.smAndDown, 'ma-5': $vuetify.breakpoint.mdAndUp}">
+        <v-card shaped class="mx-auto" width="300px">
           <v-img
-            :src="card.src"
+            :src="getImgUrl(movie.poster_path)"
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.8)"
-            height="400px"
+            height="450px"
             width="300px"
           >
-            <v-card-title v-text="card.title"></v-card-title>
+            <v-card-title v-text="movie.title"></v-card-title>
           </v-img>
 
           <v-card-actions>
@@ -20,8 +20,8 @@
 
             <v-spacer></v-spacer>
 
-            <span class="mr-2">Popularity: 6.66</span>
-            <span class="mr-2">Votes: 666</span>
+            <span class="mr-2">Popularity: {{ movie.popularity }}</span>
+            <span class="mr-2">Votes: {{ movie.vote_count }}</span>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -32,45 +32,14 @@
 <script>
 export default {
   name: "MovieDatabase",
+  props: ['movies'],
+  methods: {
+    getImgUrl(path) {
+      return process.env.VUE_APP_API_IMAGE_URL + path
+    }
+  },
   data: () => ({
-    cards: [
-      {
-        title: "Pre-fab homes",
-        src: "https://cdn.vuetifyjs.com/images/cards/house.jpg"
-      },
-      {
-        title: "Favorite road trips",
-        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg"
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg"
-      },
-      {
-        title: "Pre-fab homes",
-        src: "https://cdn.vuetifyjs.com/images/cards/house.jpg"
-      },
-      {
-        title: "Favorite road trips",
-        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg"
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg"
-      },
-      {
-        title: "Pre-fab homes",
-        src: "https://cdn.vuetifyjs.com/images/cards/house.jpg"
-      },
-      {
-        title: "Favorite road trips",
-        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg"
-      },
-      {
-        title: "Best airlines",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg"
-      }
-    ]
+    // data
   })
 };
 </script>
@@ -90,5 +59,9 @@ li {
 }
 a {
   color: #42b983;
+}
+// fix word wrapping on card titles
+.v-card__text, .v-card__title {
+  word-break: normal; /* maybe !important  */
 }
 </style>
