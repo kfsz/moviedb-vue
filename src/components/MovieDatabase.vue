@@ -14,18 +14,56 @@
           </v-img>
 
           <v-card-actions>
-            <v-btn icon>
+            <v-btn icon
+              @click.stop="getDetails(movie.id)"
+            >
               <v-icon>mdi-information</v-icon>
             </v-btn>
-
+          
             <v-spacer></v-spacer>
 
             <span class="mr-2">Popularity: {{ movie.popularity }}</span>
             <span class="mr-2">Votes: {{ movie.vote_count }}</span>
+
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
+
+    <v-dialog
+      v-model="dialog"
+      width="70%"
+      overlay-opacity="0.6"
+    >
+      <v-card>
+        <v-img
+          :src="getImgUrl(details.backdrop_path, true)"
+          opacity="0.8"
+          class="white--text align-end"
+        >
+          <v-card-title class="headline background"> 
+            {{ details.title }} 
+          </v-card-title>
+          
+          <v-card-text class="background">
+            <span class="mr-2"> {{ details.overview }} </span>
+          </v-card-text>
+
+          <v-card-actions class="background">
+            <span class="subtitle-1 ml-4 mr-2"> {{ genres }} </span>
+            <span class="subtitle-1 ml-4 mr-2"> {{ genres }} </span>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="dialog = false"
+            >
+              Close
+            </v-btn>
+          </v-card-actions>
+        </v-img>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -34,12 +72,40 @@ export default {
   name: "MovieDatabase",
   props: ['movies'],
   methods: {
-    getImgUrl(path) {
-      return process.env.VUE_APP_API_IMAGE_URL + path
-    }
+    getImgUrl(path, big=false) {
+      if (big)
+        return process.env.VUE_APP_API_BIG_IMAGE_URL + path
+      else
+        return process.env.VUE_APP_API_IMAGE_URL + path
+    },
+    getDetails(id) {
+      const axios = require("axios");
+      let Config = {
+        params: {
+          api_key: process.env.VUE_APP_API_KEY,
+          language: "en-US",
+        }
+      };
+      axios
+        .get(`${process.env.VUE_APP_API_URL}movie/` + id + `?`, Config)
+        .then(response => {
+          this.details = response.data;
+
+          var genresList = []
+          this.details.genres.forEach(genre => genresList.push(genre.name));
+          this.genres = genresList.join(", ");
+
+          this.dialog = true;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
   },
   data: () => ({
-    // data
+      details: [],
+      genres: "",
+      dialog: false,
   })
 };
 </script>
@@ -60,6 +126,12 @@ li {
 a {
   color: #42b983;
 }
+
+.background {
+   background-color: rgba(1, 15, 50, 0.79);
+   opacity: 0.95;
+ }
+
 // fix word wrapping on card titles
 .v-card__text, .v-card__title {
   word-break: normal; /* maybe !important  */

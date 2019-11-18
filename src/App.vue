@@ -95,7 +95,7 @@ export default {
         .get(`${process.env.VUE_APP_API_URL}discover/movie/?`, Config)
         .then(response => {
           this.movies = response.data.results;
-          console.log(this.movies);
+          this.length = response.data.total_pages;
         })
         .catch(error => {
           console.log(error);
