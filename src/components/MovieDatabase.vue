@@ -21,19 +21,15 @@
           </v-img>
 
           <v-card-actions>
+            <v-btn icon>
+              <v-icon>mdi-information</v-icon>
+            </v-btn>
+
             <v-spacer></v-spacer>
 
-            <v-btn icon>
-              <v-icon>mdi-heart</v-icon>
-            </v-btn>
+            <span class="mr-2">Popularity: 6.66</span>
+            <span class="mr-2">Votes: 666</span>
 
-            <v-btn icon>
-              <v-icon>mdi-bookmark</v-icon>
-            </v-btn>
-
-            <v-btn icon>
-              <v-icon>mdi-share-variant</v-icon>
-            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>

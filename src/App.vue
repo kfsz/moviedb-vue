@@ -23,6 +23,18 @@
 
       <v-spacer></v-spacer>
 
+      <v-text-field
+        hide-details
+        prepend-icon="mdi-magnify"
+        single-line
+        hint="Search The Movie DB"
+        v-model="search"
+        @change="searchDatabase"
+        @click:prepend="searchDatabase"
+      ></v-text-field>
+
+      <v-spacer></v-spacer>
+
       <v-btn
         v-on:click="toggleTheme"
         target="_blank"
@@ -45,6 +57,16 @@
     <v-content>
       <MovieDatabase />
     </v-content>
+
+    <v-pagination
+      v-model="page"
+      :length="15"
+      :next-icon="nextIcon"
+      :prev-icon="prevIcon"
+      :page="page"
+      :total-visible="7"
+    ></v-pagination>
+
   </v-app>
 </template>
 
@@ -61,11 +83,15 @@ export default {
   methods: {
     toggleTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
+    searchDatabase() {
+      alert(this.search);
     }
   },
 
   data: () => ({
-    // data
+    search: "",
+    page: 1,
   })
 };
 </script>
