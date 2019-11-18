@@ -1,25 +1,27 @@
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+      <v-btn v-on:click="start" text>
+        <div class="d-flex align-center">
+          <v-img
+            alt="Vuetify Logo"
+            class="shrink mr-2"
+            contain
+            src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+            transition="scale-transition"
+            width="40"
+          />
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+          <v-img
+            alt="Vuetify Name"
+            class="shrink mt-1 hidden-sm-and-down"
+            contain
+            min-width="100"
+            src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+            width="100"
+          />
+        </div>
+      </v-btn>
 
       <v-spacer></v-spacer>
 
@@ -29,8 +31,8 @@
         single-line
         hint="Search The Movie DB"
         v-model="search"
-        @change="searchDatabase"
-        @click:prepend="searchDatabase"
+        @change="searchStart"
+        @click:prepend="searchStart"
       ></v-text-field>
 
       <v-spacer></v-spacer>
@@ -58,7 +60,7 @@
         :length="length"
         :page="page"
         total-visible=7
-        @input="get"
+        @input="changePage"
       ></v-pagination>
     </v-footer>
   </v-app>
@@ -78,8 +80,16 @@ export default {
     toggleTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
-    searchDatabase() {
-      alert(this.search);
+    start() {
+      this.search = "";
+      this.page = 1;
+      this.get();
+    },
+    changePage() {
+      if (this.search == "")
+        this.get();
+      else
+        this.searchDatabase();
     },
     get() {
       const axios = require("axios");
@@ -93,6 +103,30 @@ export default {
       };
       axios
         .get(`${process.env.VUE_APP_API_URL}discover/movie/?`, Config)
+        .then(response => {
+          this.movies = response.data.results;
+          this.length = response.data.total_pages;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    searchStart() {
+      this.page = 1;
+      this.searchDatabase();
+    },
+    searchDatabase() {
+      const axios = require("axios");
+      let Config = {
+        params: {
+          api_key: process.env.VUE_APP_API_KEY,
+          language: "en-US",
+          query: this.search,
+          page: this.page
+        }
+      };
+      axios
+        .get(`${process.env.VUE_APP_API_URL}search/movie/?`, Config)
         .then(response => {
           this.movies = response.data.results;
           this.length = response.data.total_pages;
