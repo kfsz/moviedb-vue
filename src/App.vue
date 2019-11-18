@@ -35,20 +35,12 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        v-on:click="toggleTheme"
-        target="_blank"
-        text
-      >
+      <v-btn v-on:click="toggleTheme" target="_blank" text>
         <span class="mr-2">About</span>
         <v-icon>mdi-information-outline</v-icon>
       </v-btn>
 
-      <v-btn
-        v-on:click="toggleTheme"
-        target="_blank"
-        text
-      >
+      <v-btn v-on:click="toggleTheme" target="_blank" text>
         <span class="mr-2">Toggle dark mode</span>
         <v-icon>mdi-compare</v-icon>
       </v-btn>
@@ -58,15 +50,16 @@
       <MovieDatabase />
     </v-content>
 
-    <v-pagination
-      v-model="page"
-      :length="15"
-      :next-icon="nextIcon"
-      :prev-icon="prevIcon"
-      :page="page"
-      :total-visible="7"
-    ></v-pagination>
-
+    <v-footer>
+      <v-pagination
+        v-model="page"
+        :length="15"
+        :next-icon="nextIcon"
+        :prev-icon="prevIcon"
+        :page="page"
+        :total-visible="7"
+      ></v-pagination>
+    </v-footer>
   </v-app>
 </template>
 
@@ -91,7 +84,7 @@ export default {
 
   data: () => ({
     search: "",
-    page: 1,
+    page: 1
   })
 };
 </script>
