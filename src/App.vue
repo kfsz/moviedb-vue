@@ -24,12 +24,21 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        v-on:click="toggleTheme"
         target="_blank"
         text
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <span class="mr-2">About</span>
+        <v-icon>mdi-information-outline</v-icon>
+      </v-btn>
+
+      <v-btn
+        v-on:click="toggleTheme"
+        target="_blank"
+        text
+      >
+        <span class="mr-2">Toggle dark mode</span>
+        <v-icon>mdi-compare</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -49,8 +58,14 @@ export default {
     MovieDatabase
   },
 
+  methods: {
+    toggleTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    }
+  },
+
   data: () => ({
-    //
+    // data
   })
 };
 </script>
