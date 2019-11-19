@@ -142,7 +142,7 @@ export default {
         }
       };
       axios
-        .get(`${process.env.VUE_APP_API_URL}discover/movie/?`, Config)
+        .get(`${process.env.VUE_APP_API_URL}discover/movie?`, Config)
         .then(response => {
           this.movies = response.data.results;
           this.length = response.data.total_pages;
@@ -166,7 +166,7 @@ export default {
         }
       };
       axios
-        .get(`${process.env.VUE_APP_API_URL}search/movie/?`, Config)
+        .get(`${process.env.VUE_APP_API_URL}search/movie?`, Config)
         .then(response => {
           this.movies = response.data.results;
           this.length = response.data.total_pages;
