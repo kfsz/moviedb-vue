@@ -42,16 +42,35 @@
           class="white--text align-end"
         >
           <v-card-title class="headline background"> 
+
             {{ details.title }} 
           </v-card-title>
           
           <v-card-text class="background">
             <span class="mr-2"> {{ details.overview }} </span>
+            <div class="mt-4">
+              <span class="subtitle-1"> {{ genres }} </span>
+            </div>
+            <div class="mt-1">
+              Rating: {{ details.vote_average }} from {{ details.vote_count }} votes
+            </div>
+            <div class="mt-1">
+              Countries of Origin: {{ production_countries }}
+            </div>
           </v-card-text>
 
           <v-card-actions class="background">
-            <span class="subtitle-1 ml-4 mr-2"> {{ genres }} </span>
-            <span class="subtitle-1 ml-4 mr-2"> {{ genres }} </span>
+            <span class="shrink ml-4 mb-4">
+              <a :href="getIMDBUrl(details.imdb_id)" title="IMDB page">
+                <v-img
+                  alt="IMDB Logo"
+                  contain
+                  :src="require('./../../public/imdb-logo.png')"
+                  transition="scale-transition"
+                  width=60
+                />
+              </a>
+            </span>
             <v-spacer></v-spacer>
             <v-btn
               color="blue darken-1"
@@ -78,6 +97,9 @@ export default {
       else
         return process.env.VUE_APP_API_IMAGE_URL + path
     },
+    getIMDBUrl(id) {
+      return process.env.VUE_APP_API_IMDB_URL + id
+    },
     getDetails(id) {
       const axios = require("axios");
       let Config = {
@@ -95,6 +117,10 @@ export default {
           this.details.genres.forEach(genre => genresList.push(genre.name));
           this.genres = genresList.join(", ");
 
+          var countryList = []
+          this.details.production_countries.forEach(production_countries => countryList.push(production_countries.name));
+          this.production_countries = countryList.join(", ");
+
           this.dialog = true;
         })
         .catch(error => {
@@ -105,6 +131,7 @@ export default {
   data: () => ({
       details: [],
       genres: "",
+      production_countries: "",
       dialog: false,
   })
 };
