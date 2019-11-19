@@ -41,41 +41,43 @@
           opacity="0.8"
           class="white--text align-end"
         >
-          <v-card-title class="headline background">
-            {{ details.title }}
-          </v-card-title>
+          <div class="background">
+            <v-card-title class="headline">
+              {{ details.title }}
+            </v-card-title>
 
-          <v-card-text class="background">
-            <span class="mr-2"> {{ details.overview }} </span>
-            <div class="mt-4">
-              <span class="subtitle-1"> {{ genres }} </span>
-            </div>
-            <div class="mt-1">
-              Rating: {{ details.vote_average }} from
-              {{ details.vote_count }} votes
-            </div>
-            <div class="mt-1">
-              Countries of Origin: {{ production_countries }}
-            </div>
-          </v-card-text>
+            <v-card-text>
+              <span class="mr-2"> {{ details.overview }} </span>
+              <div class="mt-4">
+                <span class="subtitle-1"> {{ genres }} </span>
+              </div>
+              <div class="mt-1">
+                Rating: {{ details.vote_average }} from
+                {{ details.vote_count }} votes
+              </div>
+              <div class="mt-1">
+                Countries of Origin: {{ production_countries }}
+              </div>
+            </v-card-text>
 
-          <v-card-actions class="background">
-            <span class="shrink ml-4 mb-4">
-              <a :href="getIMDBUrl(details.imdb_id)" title="IMDB page">
-                <v-img
-                  alt="IMDB Logo"
-                  contain
-                  :src="require('./../../public/imdb-logo.png')"
-                  transition="scale-transition"
-                  width="60"
-                />
-              </a>
-            </span>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialog = false">
-              Close
-            </v-btn>
-          </v-card-actions>
+            <v-card-actions>
+              <span class="shrink ml-4 mb-4">
+                <a :href="getIMDBUrl(details.imdb_id)" title="IMDB page">
+                  <v-img
+                    alt="IMDB Logo"
+                    contain
+                    :src="require('./../../public/imdb-logo.png')"
+                    transition="scale-transition"
+                    width="60"
+                  />
+                </a>
+              </span>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="dialog = false">
+                Close
+              </v-btn>
+            </v-card-actions>
+          </div>
         </v-img>
       </v-card>
     </v-dialog>

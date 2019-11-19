@@ -21,13 +21,14 @@
 
       <v-spacer></v-spacer>
 
-      <v-text-field
+      <v-text-field 
         hide-details
         prepend-icon="mdi-magnify"
         single-line
         hint="Search The Movie DB"
         v-model="search"
-        @change="searchStart"
+        @keydown.enter="$event.target.blur()"
+        @blur="searchStart"
         @click:prepend="searchStart"
       ></v-text-field>
 
@@ -71,6 +72,9 @@
               >www.flaticon.com</a
             >
           </div>
+          <div>
+            This product uses the TMDb API but is not endorsed or certified by TMDb.
+          </div>
         </v-card-text>
 
         <v-card-actions class="background">
@@ -82,10 +86,6 @@
             transition="scale-transition"
             width="160"
           />
-          <span class="mr-2">
-            This product uses the TMDb API but is not endorsed or certified by
-            TMDb.
-          </span>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">
             Close
