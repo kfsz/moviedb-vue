@@ -4,22 +4,16 @@
       <v-btn v-on:click="start" text>
         <div class="d-flex align-center">
           <v-img
-            alt="Vuetify Logo"
+            alt="Movie DB Logo"
             class="shrink mr-2"
             contain
-            src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
+            :src="require('./../public/panda-bear.png')"
             transition="scale-transition"
             width="40"
           />
-
-          <v-img
-            alt="Vuetify Name"
-            class="shrink mt-1 hidden-sm-and-down"
-            contain
-            min-width="100"
-            src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-            width="100"
-          />
+          
+          <span class="headline font-weight-light shrink mt-1 hidden-sm-and-down"
+          >Movie DB</span>
         </div>
       </v-btn>
 
@@ -37,7 +31,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn v-on:click="toggleTheme" target="_blank" text>
+      <v-btn @click.stop="dialog=true" target="_blank" text>
         <span class="mr-2 hidden-sm-and-down">About</span>
         <v-icon>mdi-information-outline</v-icon>
       </v-btn>
@@ -51,6 +45,48 @@
     <v-content>
       <MovieDatabase :movies="this.movies" />
     </v-content>
+
+    <v-dialog
+      v-model="dialog"
+      width="60%"
+      overlay-opacity="0.9"
+    >
+      <v-card>
+        <v-card-title class="headline background"> 
+          Movie Database
+        </v-card-title>
+        
+        <v-card-text class="background">
+          <div>
+            Source available on <a href="https://github.com/kfsz/moviedb-vue" title="MovieDB Source">GitHub</a>
+          </div>
+          <div>
+            Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
+            from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+          </div>
+        </v-card-text>
+
+        <v-card-actions class="background">
+          <v-img
+            alt="The Movie DB Logo"
+            class="shrink mr-2"
+            contain
+            :src="require('./../public/moviedb.png')"
+            transition="scale-transition"
+            width="160"
+          />
+          <span class="mr-2"> This product uses the TMDb API but is not endorsed or certified by TMDb. </span>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <v-footer>
       <v-pagination
@@ -143,7 +179,8 @@ export default {
     search: "",
     page: 1,
     length: 15,
-    movies: []
+    movies: [],
+    dialog: false,
   })
 };
 </script>
