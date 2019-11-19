@@ -146,6 +146,11 @@ export default {
         .then(response => {
           this.movies = response.data.results;
           this.length = response.data.total_pages;
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+          });
         })
         .catch(error => {
           console.log(error);
@@ -170,6 +175,11 @@ export default {
         .then(response => {
           this.movies = response.data.results;
           this.length = response.data.total_pages;
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+          });
         })
         .catch(error => {
           console.log(error);
