@@ -13,6 +13,7 @@
           />
 
           <span
+            id="app-title"
             class="headline font-weight-light shrink mt-1 hidden-sm-and-down"
             >Movie DB</span
           >
@@ -34,12 +35,22 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn @click.stop="dialog = true" target="_blank" text>
+      <v-btn
+        id="about-button"
+        @click.stop="dialog = true"
+        target="_blank"
+        text
+      >
         <span class="mr-2 hidden-sm-and-down">About</span>
         <v-icon>mdi-information-outline</v-icon>
       </v-btn>
 
-      <v-btn v-on:click="toggleTheme" target="_blank" text>
+      <v-btn
+        id="change-theme-button"
+        v-on:click="toggleTheme"
+        target="_blank"
+        text
+      >
         <span class="mr-2 hidden-sm-and-down">Toggle dark mode</span>
         <v-icon>mdi-compare</v-icon>
       </v-btn>

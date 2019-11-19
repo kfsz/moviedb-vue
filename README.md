@@ -1,5 +1,10 @@
 # movie-db
 
+Deployed on Heroku:  
+https://movie-db-vue.herokuapp.com/  
+
+Needs The Movie DB API key as environmental variable (VUE_APP_API_KEY) to work.  
+
 ## Project setup
 ```
 npm install
@@ -18,11 +23,6 @@ npm run build
 ### Run your unit tests
 ```
 npm run test:unit
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
 ```
 
 ### Lints and fixes files
