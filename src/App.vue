@@ -11,9 +11,11 @@
             transition="scale-transition"
             width="40"
           />
-          
-          <span class="headline font-weight-light shrink mt-1 hidden-sm-and-down"
-          >Movie DB</span>
+
+          <span
+            class="headline font-weight-light shrink mt-1 hidden-sm-and-down"
+            >Movie DB</span
+          >
         </div>
       </v-btn>
 
@@ -31,7 +33,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn @click.stop="dialog=true" target="_blank" text>
+      <v-btn @click.stop="dialog = true" target="_blank" text>
         <span class="mr-2 hidden-sm-and-down">About</span>
         <v-icon>mdi-information-outline</v-icon>
       </v-btn>
@@ -46,23 +48,28 @@
       <MovieDatabase :movies="this.movies" />
     </v-content>
 
-    <v-dialog
-      v-model="dialog"
-      width="60%"
-      overlay-opacity="0.9"
-    >
+    <v-dialog v-model="dialog" width="60%" overlay-opacity="0.9">
       <v-card>
-        <v-card-title class="headline background"> 
+        <v-card-title class="headline background">
           Movie Database
         </v-card-title>
-        
+
         <v-card-text class="background">
           <div>
-            Source available on <a href="https://github.com/kfsz/moviedb-vue" title="MovieDB Source">GitHub</a>
+            Source available on
+            <a href="https://github.com/kfsz/moviedb-vue" title="MovieDB Source"
+              >GitHub</a
+            >
           </div>
           <div>
-            Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a>
-            from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+            Icons made by
+            <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
+              >Freepik</a
+            >
+            from
+            <a href="https://www.flaticon.com/" title="Flaticon"
+              >www.flaticon.com</a
+            >
           </div>
         </v-card-text>
 
@@ -75,13 +82,12 @@
             transition="scale-transition"
             width="160"
           />
-          <span class="mr-2"> This product uses the TMDb API but is not endorsed or certified by TMDb. </span>
+          <span class="mr-2">
+            This product uses the TMDb API but is not endorsed or certified by
+            TMDb.
+          </span>
           <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
+          <v-btn color="blue darken-1" text @click="dialog = false">
             Close
           </v-btn>
         </v-card-actions>
@@ -95,7 +101,7 @@
         :prev-icon="prevIcon"
         :length="length"
         :page="page"
-        total-visible=7
+        total-visible="7"
         @input="changePage"
       ></v-pagination>
     </v-footer>
@@ -122,10 +128,8 @@ export default {
       this.get();
     },
     changePage() {
-      if (this.search == "")
-        this.get();
-      else
-        this.searchDatabase();
+      if (this.search == "") this.get();
+      else this.searchDatabase();
     },
     get() {
       const axios = require("axios");
@@ -180,7 +184,7 @@ export default {
     page: 1,
     length: 15,
     movies: [],
-    dialog: false,
+    dialog: false
   })
 };
 </script>
