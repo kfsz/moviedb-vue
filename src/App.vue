@@ -35,12 +35,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        id="about-button"
-        @click.stop="dialog = true"
-        target="_blank"
-        text
-      >
+      <v-btn id="about-button" @click.stop="dialog = true" target="_blank" text>
         <span class="mr-2 hidden-sm-and-down">About</span>
         <v-icon>mdi-information-outline</v-icon>
       </v-btn>
