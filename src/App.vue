@@ -21,7 +21,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-text-field 
+      <v-text-field
         hide-details
         prepend-icon="mdi-magnify"
         single-line
@@ -50,7 +50,7 @@
     </v-content>
 
     <v-dialog v-model="dialog" width="60%" overlay-opacity="0.9">
-      <v-card>
+      <v-card raised>
         <v-card-title class="headline background">
           Movie Database
         </v-card-title>
@@ -73,7 +73,8 @@
             >
           </div>
           <div>
-            This product uses the TMDb API but is not endorsed or certified by TMDb.
+            This product uses the TMDb API but is not endorsed or certified by
+            TMDb.
           </div>
         </v-card-text>
 
@@ -149,7 +150,7 @@ export default {
           window.scrollTo({
             top: 0,
             left: 0,
-            behavior: 'smooth'
+            behavior: "smooth"
           });
         })
         .catch(error => {
@@ -178,7 +179,7 @@ export default {
           window.scrollTo({
             top: 0,
             left: 0,
-            behavior: 'smooth'
+            behavior: "smooth"
           });
         })
         .catch(error => {

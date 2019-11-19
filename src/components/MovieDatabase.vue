@@ -4,18 +4,23 @@
       <v-col
         v-for="movie in movies"
         :key="movie.title"
-        :class="{
-          'ma-0': $vuetify.breakpoint.smAndDown,
-          'ma-5': $vuetify.breakpoint.mdAndUp
-        }"
+        :class="$vuetify.breakpoint.smAndDown ? 'ma-0' : 'ma-5'"
       >
-        <v-card shaped class="mx-auto" :width="($vuetify.breakpoint.smAndDown) ? '150px' : '300px'">
+        <v-card
+          shaped
+          class="mx-auto"
+          :width="$vuetify.breakpoint.smAndDown ? '154px' : '300px'"
+        >
           <v-img
-            :src="getImgUrl(movie.poster_path)"
+            :src="
+              $vuetify.breakpoint.smAndDown
+                ? getImgUrl(movie.poster_path, 1)
+                : getImgUrl(movie.poster_path)
+            "
             class="white--text align-end"
             gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.8)"
-            :height="($vuetify.breakpoint.smAndDown) ? '225px' : '450px'"
-            :width="($vuetify.breakpoint.smAndDown) ? '150px' : '300px'"
+            :height="$vuetify.breakpoint.smAndDown ? '231px' : '450px'"
+            :width="$vuetify.breakpoint.smAndDown ? '154px' : '300px'"
           >
             <v-card-title v-text="movie.title"></v-card-title>
           </v-img>
@@ -27,9 +32,9 @@
 
             <v-spacer></v-spacer>
 
-            <div :class="($vuetify.breakpoint.smAndDown) ? 'small' : ''">
-              <span class="mr-2">Popularity: {{ movie.popularity }}</span> 
-              <br v-if="($vuetify.breakpoint.smAndDown)">
+            <div :class="$vuetify.breakpoint.smAndDown ? 'small' : ''">
+              <span class="mr-2">Popularity: {{ movie.popularity }}</span>
+              <br v-if="$vuetify.breakpoint.smAndDown" />
               <span class="mr-2">Votes: {{ movie.vote_count }}</span>
             </div>
           </v-card-actions>
@@ -38,9 +43,9 @@
     </v-row>
 
     <v-dialog v-model="dialog" width="70%" overlay-opacity="0.6">
-      <v-card>
+      <v-card raised>
         <v-img
-          :src="getImgUrl(details.backdrop_path, true)"
+          :src="getImgUrl(details.backdrop_path, 2)"
           opacity="0.8"
           class="white--text align-end"
         >
@@ -92,8 +97,9 @@ export default {
   name: "MovieDatabase",
   props: ["movies"],
   methods: {
-    getImgUrl(path, big = false) {
-      if (big) return process.env.VUE_APP_API_BIG_IMAGE_URL + path;
+    getImgUrl(path, size = 0) {
+      if (size == 2) return process.env.VUE_APP_API_BIG_IMAGE_URL + path;
+      else if (size == 1) return process.env.VUE_APP_API_SMALL_IMAGE_URL + path;
       else return process.env.VUE_APP_API_IMAGE_URL + path;
     },
     getIMDBUrl(id) {
@@ -156,7 +162,7 @@ a {
 }
 
 .small {
-  font-size: 65%,
+  font-size: 65%;
 }
 
 .background {
